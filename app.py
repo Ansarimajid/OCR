@@ -7,8 +7,7 @@ from PIL import Image
 # Supported languages (add more languages as needed)
 languages = {
     "English": "en",
-    "Arabic": "ar",
-    "Chinese": "ch"
+    "Arabic": "ar"
 }
 
 # Default language
