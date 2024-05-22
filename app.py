@@ -58,7 +58,7 @@ if uploaded_file is not None:
         st.write(f"{text} (Confidence: {conf_scores})")
     
     # Optional: Draw OCR results on the image
-    draw_image = st.checkbox("Draw OCR Results on Image", value=False)  # Checkbox for drawing option
+    # draw_image = st.checkbox("Draw OCR Results on Image", value=False)  # Checkbox for drawing option
     
     if draw_image:
         # Extract bounding boxes
