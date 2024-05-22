@@ -41,14 +41,24 @@ if uploaded_file is not None:
     # Display OCR results with confidence scores
     st.subheader("OCR Text with Confidence:")
     for line in result:
+        # Initialize a list to store formatted text
+        formatted_text = []
+        
         # Iterate through each detection in the line
         for detection in line:
             # Extract text and confidence score from the detection
             text = detection[1][0]
             confidence = detection[1][1]
             
-            # Print each line of text along with its confidence score
-            st.write(f"{text} - Confidence: {confidence:.2f}")
+            # Format the text for display
+            formatted_text.append(f"<span style='font-weight: bold;'>{text}</span> - : {confidence:.2f}")
+        
+        # Combine all formatted text in the line
+        combined_text = "<br>".join(formatted_text)
+        
+        # Display the combined text with HTML rendering
+        st.write(f"{combined_text}", unsafe_allow_html=True)
+        
         # Add an empty line to separate each line of text
         st.write("")  # Add an empty line between each line of text
     
