@@ -38,24 +38,48 @@ if uploaded_file is not None:
     # Perform OCR
     result = ocr.ocr(img_path, cls=True)
     
-    # Extract OCR results
-    boxes = [detection[0] for line in result for detection in line]
-    txts = [detection[1][0] for line in result for detection in line]
-    scores = [detection[1][1] for line in result for detection in line]
+    # Create empty lists to store text and confidence scores
+    ocr_text = []
+    confidences = []
     
-    # Draw OCR results on the image
-    image = Image.open(img_path).convert('RGB')
+    # Extract OCR results and confidence scores
+    for line in result:
+        # Extract text from each line
+        line_text = " ".join([detection[1][0] for detection in line])
+        ocr_text.append(line_text)
+        
+        # Extract confidence scores from each line
+        confidences.append([detection[1][1] for detection in line])
     
-    # Set a valid font path for Arabic (adjust based on your system)
-    if lang_code == "ar":
-        font_path = 'fonts\Amiri-Regular.ttf'  # Example Arabic font path
-    else:
-        font_path = 'fonts\simfang.ttf'  # Default font path (adjust if needed)
+    # Display OCR results with confidence scores
+    st.subheader("OCR Text with Confidence:")
+    for i, text in enumerate(ocr_text):
+        conf_scores = ", ".join([f"{score:.2f}" for score in confidences[i]])  # Format scores with 2 decimals
+        st.write(f"{text} (Confidence: {conf_scores})")
     
-    im_show = draw_ocr(image, boxes, txts, scores, font_path=font_path)
-    im_show = Image.fromarray(im_show)
+    # Optional: Draw OCR results on the image
+    draw_image = st.checkbox("Draw OCR Results on Image", value=False)  # Checkbox for drawing option
     
-    # Save and display the processed image
-    output_path = 'test.jpg'
-    im_show.save(output_path)
-    st.image(im_show, caption='Processed Image', use_column_width=True)
+    if draw_image:
+        # Extract bounding boxes
+        boxes = [detection[0] for line in result for detection in line]
+        txts = [detection[1][0] for line in result for detection in line]
+        scores = [detection[1][1] for line in result for detection in line]
+        
+        # Open image and set font path
+        image = Image.open(img_path).convert('RGB')
+        if lang_code == "ar":
+            font_path = 'fonts\Amiri-Regular.ttf'  # Example Arabic font path (adjust if needed)
+        else:
+            font_path = 'fonts\simfang.ttf'  # Default font path (adjust if needed)
+        
+        # Draw OCR results on the image
+        im_show = draw_ocr(image, boxes, txts, scores, font_path=font_path)
+        im_show = Image.fromarray(im_show)
+        
+        # Save and display the processed image
+        output_path = 'test.jpg'
+        im_show.save(output_path)
+        st.image(im_show, caption='Processed Image with OCR Results', use_column_width=True)
+
+
