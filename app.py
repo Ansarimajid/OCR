@@ -51,7 +51,7 @@ if uploaded_file is not None:
             confidence = detection[1][1]
             
             # Format the text for display
-            formatted_text.append(f"<span style='font-weight: bold;'>{text}</span> - : {confidence:.2f}")
+            formatted_text.append(f"<span style='font-weight: bold;'>~ {text}</span> - : {confidence:.2f}")
         
         # Combine all formatted text in the line
         combined_text = "<br>".join(formatted_text)
