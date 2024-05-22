@@ -60,26 +60,26 @@ if uploaded_file is not None:
     # Optional: Draw OCR results on the image
     # draw_image = st.checkbox("Draw OCR Results on Image", value=False)  # Checkbox for drawing option
     
-    if draw_image:
-        # Extract bounding boxes
-        boxes = [detection[0] for line in result for detection in line]
-        txts = [detection[1][0] for line in result for detection in line]
-        scores = [detection[1][1] for line in result for detection in line]
+    # if draw_image:
+    #     # Extract bounding boxes
+    #     boxes = [detection[0] for line in result for detection in line]
+    #     txts = [detection[1][0] for line in result for detection in line]
+    #     scores = [detection[1][1] for line in result for detection in line]
         
-        # Open image and set font path
-        image = Image.open(img_path).convert('RGB')
-        if lang_code == "ar":
-            font_path = 'fonts\Amiri-Regular.ttf'  # Example Arabic font path (adjust if needed)
-        else:
-            font_path = 'fonts\simfang.ttf'  # Default font path (adjust if needed)
+    #     # Open image and set font path
+    #     image = Image.open(img_path).convert('RGB')
+    #     if lang_code == "ar":
+    #         font_path = 'fonts\Amiri-Regular.ttf'  # Example Arabic font path (adjust if needed)
+    #     else:
+    #         font_path = 'fonts\simfang.ttf'  # Default font path (adjust if needed)
         
-        # Draw OCR results on the image
-        im_show = draw_ocr(image, boxes, txts, scores, font_path=font_path)
-        im_show = Image.fromarray(im_show)
+    #     # Draw OCR results on the image
+    #     im_show = draw_ocr(image, boxes, txts, scores, font_path=font_path)
+    #     im_show = Image.fromarray(im_show)
         
-        # Save and display the processed image
-        output_path = 'test.jpg'
-        im_show.save(output_path)
-        st.image(im_show, caption='Processed Image with OCR Results', use_column_width=True)
+    #     # Save and display the processed image
+    #     output_path = 'test.jpg'
+    #     im_show.save(output_path)
+    #     st.image(im_show, caption='Processed Image with OCR Results', use_column_width=True)
 
 
