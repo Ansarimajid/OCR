@@ -37,25 +37,26 @@ if uploaded_file is not None:
     
     # Perform OCR
     result = ocr.ocr(img_path, cls=True)
-    
-    # Create empty lists to store text and confidence scores
-    ocr_text = []
-    confidences = []
-    
-    # Extract OCR results and confidence scores
-    for line in result:
-        # Extract text from each line
-        line_text = " ".join([detection[1][0] for detection in line])
-        ocr_text.append(line_text)
-        
-        # Extract confidence scores from each line
-        confidences.append([detection[1][1] for detection in line])
-    
+
     # Display OCR results with confidence scores
     st.subheader("OCR Text with Confidence:")
-    for i, text in enumerate(ocr_text):
-        conf_scores = ", ".join([f"{score:.2f}" for score in confidences[i]])  # Format scores with 2 decimals
-        st.write(f"{text} (Confidence: {conf_scores})")
+    for line in result:
+        # Iterate through each detection in the line
+        for detection in line:
+            # Extract text and confidence score from the detection
+            text = detection[1][0]
+            confidence = detection[1][1]
+            
+            # Print each line of text along with its confidence score
+            st.write(f"{text} - Confidence: {confidence:.2f}")
+        # Add an empty line to separate each line of text
+        st.write("")  # Add an empty line between each line of text
+    
+    # # Display OCR results with confidence scores
+    # st.subheader("OCR Text with Confidence:")
+    # for i, text in enumerate(ocr_text):
+    #     conf_scores = ", ".join([f"{score:.2f}" for score in confidences[i]])  # Format scores with 2 decimals
+    #     st.write(f"{text} (Confidence: {conf_scores})")
     
     # Optional: Draw OCR results on the image
     # draw_image = st.checkbox("Draw OCR Results on Image", value=False)  # Checkbox for drawing option
