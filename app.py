@@ -9,7 +9,7 @@ languages = {
     "English": "en",
     "Arabic": "ar",
     "Hindi": "hi",
-    "Chinese":"ch"
+    "French":"fr"
     
 }
 
