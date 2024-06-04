@@ -8,6 +8,8 @@ from PIL import Image
 languages = {
     "English": "en",
     "Arabic": "ar"
+    "Hindi": "hi"
+    
 }
 
 # Default language
